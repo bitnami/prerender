@@ -8,6 +8,11 @@ server.use(prerender.sendPrerenderHeader());
 server.use(prerender.removeScriptTags());
 server.use(prerender.httpHeaders());
 
+// Cache
+if (process.env.IN_MEMORY_CACHE) {
+  server.use(prerender.inMemoryHtmlCache());
+}
+
 if (
   process.env.AWS_ACCESS_KEY_ID &&
   process.env.AWS_SECRET_ACCESS_KEY &&
