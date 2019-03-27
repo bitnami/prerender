@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 var prerender = require('./lib');
 
-var server = prerender();
+var server = prerender({
+  chromeFlags: [
+    '--no-sandbox', // we trust Kubeapps, and it's the only content we'll open
+    '--headless',
+    '--remote-debugging-port=9222',
+  ]
+});
 
 server.use(prerender.sendPrerenderHeader());
 // server.use(prerender.blockResources());
